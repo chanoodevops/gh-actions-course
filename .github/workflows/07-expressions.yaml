@@ -14,7 +14,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: "[Debug] Print start-up data"
-              if: ${{ inputs.debug == 'true' }}
+              if: ${{ inputs.debug }}
               run: |
                   echo "Debug mode is enabled."
                   echo "Event triggered by: ${{ github.event_name }}"
