@@ -1,0 +1,58 @@
+name: 08 - Using Variables
+
+on:
+    workflow_dispatch:
+    push:
+
+env:
+    MY_WORKFLOW_VAR: "I am a workflow variable"
+    MY_OVERWRITTEN_VAR: "I will be overwritten"
+
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        env:
+            MY_OVERWRITTEN_VAR: "I am a job variable"
+            JOB_VAR: "I am a job variable"
+        steps:
+            - name: Show Contexts
+              run: |
+                  echo "Event triggered by: ${{ github.event_name }}"
+                  echo "Repository name: ${{ github.repository }}"
+                  echo "Actor: ${{ github.actor }}"
+                  echo "Workflow: ${{ github.workflow }}"
+                  echo "Job ID: ${{ github.job }}"
+                  echo "Run ID: ${{ github.run_id }}"
+                  echo "Run Number: ${{ github.run_number }}"
+            - name: Retrieve Variables
+              run: |
+                  echo "Variable value: ${{ vars.MY_VAR }}"
+
+            - name: Print Env Variables
+              env:
+                  MY_OVERWRITTEN_VAR: "I am a step variable"
+              run: |
+                  echo "Workflow variable: ${{ env.MY_WORKFLOW_VAR }}"
+                  echo "Overwritten variable: ${{ env.MY_OVERWRITTEN_VAR }}"
+            - name: Print Env Variables
+              run: |
+                  echo "Workflow variable: ${{ env.MY_WORKFLOW_VAR }}"
+                  echo "Overwritten variable: ${{ env.MY_OVERWRITTEN_VAR }}"
+            - name: Print Job Variable
+              env:
+                    STEP_VAR: "I am a step variable"
+                    step_var2: "I am another step variable"
+              run: |
+                  echo "Job variable: ${{ env.JOB_VAR }}"
+                  echo "Step variable: ${{ env.STEP_VAR }}"
+                  echo "Another step variable: ${{ env.step_var2 }}"
+                  echo "Workflow variable: ${{ env.MY_WORKFLOW_VAR }}"
+                  echo "Overwritten variable: ${{ env.MY_OVERWRITTEN_VAR }}"
+            - name: Overwrite Job Variable
+              env:
+                    MY_OVERWRITTEN_VAR: "I am an overwritten job variable"
+              run: |
+                  echo "Overwriting job variable"
+                  echo "MY_OVERWRITTEN_VAR=I am an overwritten job variable" >> $GITHUB_ENV
+
+
