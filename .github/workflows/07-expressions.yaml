@@ -6,32 +6,32 @@ on:
             debug:
                 type: boolean
                 description: "Enable debug mode"
-                default: false
+                default: true
     push:
 
 jobs:
     echo:
         runs-on: ubuntu-latest
         steps:
-            - name: '[Debug] Print start-up data'
+            - name: "[Debug] Print start-up data"
               if: ${{ inputs.debug == 'true' }}
               run: |
-                    echo "Debug mode is enabled."
-                    echo "Event triggered by: ${{ github.event_name }}"
-                    echo "Repository: ${{ github.repository }}"
-                    echo "Actor: ${{ github.actor }}"
-                    echo "Workflow: ${{ github.workflow }}"
-                    echo "Job ID: ${{ github.job }}"
-                    echo "Run ID: ${{ github.run_id }}"
-                    echo "Run Number: ${{ github.run_number }}"
-                    echo "Commit SHA: ${{ github.sha }}"
-                    echo "Ref: ${{ github.ref }}"
-                    echo "Runner OS: ${{ runner.os }}"
-            - name: '[Debug] Print when triggered from main branch'
+                  echo "Debug mode is enabled."
+                  echo "Event triggered by: ${{ github.event_name }}"
+                  echo "Repository: ${{ github.repository }}"
+                  echo "Actor: ${{ github.actor }}"
+                  echo "Workflow: ${{ github.workflow }}"
+                  echo "Job ID: ${{ github.job }}"
+                  echo "Run ID: ${{ github.run_id }}"
+                  echo "Run Number: ${{ github.run_number }}"
+                  echo "Commit SHA: ${{ github.sha }}"
+                  echo "Ref: ${{ github.ref }}"
+                  echo "Runner OS: ${{ runner.os }}"
+            - name: "[Debug] Print when triggered from main branch"
               if: ${{  github.ref == 'refs/heads/main' }}
               run: |
-                    echo "Environment Variables:"
-                    printenv
+                  echo "Environment Variables:"
+                  printenv
             - name: Greeting
               run: |
-                    echo "Hello, ${{ github.actor }}! This is a demonstration of using expressions in GitHub Actions."
+                  echo "Hello, ${{ github.actor }}! This is a demonstration of using expressions in GitHub Actions."
